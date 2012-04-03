@@ -39,9 +39,68 @@
           <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></span>
         </div>
 
-        <h2>Trying out GitHub Pages</h2>
+<h1 id="greystate_xslt_helpers">Greystate XSLT Helpers</h1>
 
-<p>Look for new content soon ...</p>
+<p>Miscellaneous XSLT files for use as included stylesheets to ease certain common tasks.</p>
+
+<p>Hopefully, using these helpers you should be able to keep your XSLT clean and
+readable, while offering a level of indirection for tasks that could require changes in
+the low-level implementation, when moved from one system to another.</p>
+
+<h2 id="installation">Installation</h2>
+
+<p>An installable package is in the works but for now, you should grab the files in the <code>dist</code> folder and put them in the <code>xslt</code> folder
+of your Umbraco installation.</p>
+
+<h2 id="basic_usage">Basic usage</h2>
+
+<p>Using these helpers usually just require the same 2 steps:</p>
+
+<ol>
+<li><p>Include the file(s) in your main XSLT file using the include instruction:</p>
+
+<p><code>&lt;xsl:include href="_HelperFile.xslt" /&gt;</code></p></li>
+<li><p>Perform one of the following actions:</p>
+
+<ul>
+<li><p>Applying templates in a specific mode</p>
+
+<p><code>&lt;xsl:apply-templates select="$currentPage/pageImage" mode="media" /&gt;</code></p></li>
+<li><p>Calling a named template</p>
+
+<p><code>&lt;xsl:call-template name="PageinateSelection" /&gt;</code></p></li>
+</ul></li>
+</ol>
+
+<h2 id="helpers">Helpers</h2>
+
+<p>Each helper has its own README but here&#8217;s a quick rundown: </p>
+
+<h3 id="pagination_helper"><a href="https://github.com/greystate/Greystate-XSLT-Helpers/tree/master/paginationhelper">Pagination Helper</a></h3>
+
+<p>A self-contained clip-on solution for pagination of node-sets.</p>
+
+<blockquote>
+  <p>&#8220;Just add Pagination&#8221;</p>
+</blockquote>
+
+<h3 id="grouping_helper"><a href="https://github.com/greystate/Greystate-XSLT-Helpers/tree/master/groupinghelper">Grouping Helper</a></h3>
+
+<p>Just like pagination - but for grouping sets into chunks of <em>n</em> elements.</p>
+
+<h3 id="media_helpers"><a href="https://github.com/greystate/Greystate-XSLT-Helpers/tree/master/mediahelpers">Media Helpers</a></h3>
+
+<p>A bunch of well-tested templates for handling Media items in Umbraco - if you&#8217;ve asked some of the following questions, this is definitely for you:</p>
+
+<blockquote>
+  <p>How can I output Media files and/or folders from my XSLT macros?</p>
+
+<p>But I just want to render the image the user picked - why is it so hard???</p>
+
+<p>How do I output a specific crop version?</p>
+</blockquote>
+
+
       </section>
 
     </div>
