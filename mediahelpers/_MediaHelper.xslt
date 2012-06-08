@@ -69,6 +69,26 @@
 		</xsl:apply-templates>
 	</xsl:template>
 	
+	<!-- Template for media that should be wrapped in a link - handles potential error -->
+	<xsl:template match="*" mode="media.link">
+		<xsl:param name="class" />
+		<xsl:param name="crop" />
+		<xsl:param name="id" />
+		<xsl:param name="size" />
+		<xsl:variable name="mediaNode" select="&GetMediaFile;" />
+		<xsl:variable name="thumbnail" select="concat(substring-before($mediaNode/umbracoFile, concat('.', $mediaNode/umbracoExtension)), '_thumb.jpg')" />
+		<xsl:if test="not($mediaNode[error])">
+			<a href="{$mediaNode/umbracoFile}">
+				<xsl:if test="$class"><xsl:attribute name="class"><xsl:value-of select="$class" /></xsl:attribute></xsl:if>
+				<img src="{$thumbnail}" alt="{$mediaNode/@nodeName}">
+					<xsl:if test="$crop">
+						<xsl:attribute name="src"><xsl:value-of select="$mediaNode/*/crops/crop[@name = $crop]/@url" /></xsl:attribute>
+					</xsl:if>
+				</img>
+			</a>
+		</xsl:if>
+	</xsl:template>
+	
 	<!-- Template for any mediafolder that needs fetching - handles potential error -->
 	<xsl:template match="*" mode="media.folder">
 		<xsl:param name="class" />
@@ -188,6 +208,10 @@
 	</xsl:template>
 	
 	<xsl:template match="*[not(normalize-space())]" mode="media.url">
+		<xsl:apply-templates select="." mode="media" /><!-- Redirect to the one above -->
+	</xsl:template>
+	
+	<xsl:template match="*[not(normalize-space())]" mode="media.link">
 		<xsl:apply-templates select="." mode="media" /><!-- Redirect to the one above -->
 	</xsl:template>
 	

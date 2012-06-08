@@ -174,6 +174,51 @@
 		</x:scenario>
 		
 	</x:scenario>
+	
+	<x:scenario label="when processing an element in mode=&quot;media.link&quot;">
+		<x:context mode="media.link" />
+
+		<x:scenario label="with no content">
+			<x:context>
+				<imgFolder></imgFolder>
+			</x:context>
+			<x:expect label="it should generate no output">
+				<!--...-->
+			</x:expect>
+		</x:scenario>
+		
+		<x:scenario label="with a correct Media id">
+			<x:context mode="media.link">
+				<pageImage>2230</pageImage>
+			</x:context>
+			<x:expect label="it should produce a thumbnail linked to the original image">
+				<a href="/test2230.png"><img src="/test2230_thumb.jpg" alt="My first Banner" /></a>
+			</x:expect>
+			
+			<x:scenario label="and a class parameter">
+				<x:context>
+					<x:param name="class" select="'className'" />
+				</x:context>
+			
+				<x:expect label="it should add the class attribute">
+					<a class="className" href="..."><img src="..." alt="..." /></a>
+				</x:expect>
+			</x:scenario>
+
+			<x:scenario label="and a crop parameter">
+				<x:context>
+					<x:param name="crop" select="'Large'" />				
+				</x:context>
+				<x:expect label="it should use the crop instead of the thumbnail">
+					<a href="...">
+						<img src="/test2230_Large.png" alt="..." />
+					</a>
+				</x:expect>
+			</x:scenario>
+	
+		</x:scenario>
+
+	</x:scenario>
 
 	<x:import href="TestDAMP.xspec" />
 	
